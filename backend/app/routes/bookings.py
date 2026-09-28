@@ -7,6 +7,7 @@ from app.auth_dependency import get_current_user
 from datetime import date as date_cls, timedelta
 from datetime import datetime, date as date_cls, timedelta
 from app.notification_service import notify_booking_update
+from datetime import datetime, date as date_cls, time as time_cls, timedelta
 
 BOOKING_WINDOW_DAYS = 7  
 
@@ -150,3 +151,25 @@ def cancel_booking(
     booking.cancelled_at = sqlfunc.now()
     db.commit()
     return {"message": "Booking cancelled"}
+
+
+@router.get("/availability/day", response_model=list[schemas.AvailabilityOut])
+def day_availability(
+    date: str,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(get_current_user),
+):
+    d = date_cls.fromisoformat(date)
+    settings = db.query(models.RestaurantSettings).first()
+    if not settings:
+        raise HTTPException(status_code=500, detail="Restaurant settings not configured")
+
+    slots = []
+    current = datetime.combine(d, settings.open_time)
+    end = datetime.combine(d, settings.close_time)
+    step = timedelta(minutes=settings.slot_length_minutes)
+    while current < end:
+        t = current.time()
+        slots.append({"date": d, "slot_start": t, **get_available_seats(db, d, t)})
+        current += step
+    return slots
