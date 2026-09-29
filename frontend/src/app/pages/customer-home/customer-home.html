@@ -1,0 +1,50 @@
+<header class="topbar">
+  <span class="brand">SmartDine</span>
+  <a class="ghost" routerLink="/my-bookings">My bookings</a>
+  <button class="ghost" (click)="signOut()">Sign out</button>
+</header>
+
+<main class="book">
+  <h1>Choose a time</h1>
+
+  <div class="days" role="group" aria-label="Choose a day">
+    @for (d of days; track d.iso) {
+      <button class="day" [attr.aria-pressed]="d.iso === selectedDay()" (click)="pickDay(d.iso)">{{ d.label }}</button>
+    }
+  </div>
+
+  <div class="party">
+    <span>Party of</span>
+    <button class="step" (click)="changeParty(-1)" aria-label="Fewer guests">−</button>
+    <strong>{{ party() }}</strong>
+    <button class="step" (click)="changeParty(1)" aria-label="More guests">+</button>
+  </div>
+
+  @if (message(); as m) {
+    <p [class]="m.ok ? 'notice' : 'error'" role="status">{{ m.text }}</p>
+  }
+
+  @if (loading()) {
+    <p class="alt">Loading times</p>
+  } @else {
+    <div class="slots">
+      @for (s of slots(); track s.slot_start) {
+        <div class="slot">
+          <span class="time">{{ hourLabel(s.slot_start) }}</span>
+          <app-seat-table [total]="s.total_seats" [taken]="s.booked_seats + s.blocked_seats" />
+          <span>
+            <span class="st" [style.color]="tone(s)">
+              {{ s.available_seats > 0 ? s.available_seats + ' seats left' : 'Full' }}
+            </span>
+            @if (isPast(s)) {
+              <small>Already started</small>
+            } @else if (s.available_seats > 0 && s.available_seats < party()) {
+              <small>Not enough seats for {{ party() }}</small>
+            }
+          </span>
+          <button class="btn" [disabled]="!canBook(s) || busy()" (click)="book(s)">Book</button>
+        </div>
+      }
+    </div>
+  }
+</main>

@@ -1,0 +1,40 @@
+<h1>Bookings</h1>
+
+<section class="block-box">
+  <h3>Block seats</h3>
+  <form class="block-form" (ngSubmit)="submitBlock()">
+    <label>Date <input type="date" name="bd" [(ngModel)]="blockDate" required></label>
+    <label>Time <input type="time" name="bs" [(ngModel)]="blockSlot" required></label>
+    <label>Seats <input type="number" name="bn" min="1" [(ngModel)]="blockSeats" required></label>
+    <label>Reason <input type="text" name="br" [(ngModel)]="blockReason" placeholder="Private event"></label>
+    <button class="btn" type="submit" [disabled]="blocking()">{{ blocking() ? 'Blocking' : 'Block seats' }}</button>
+  </form>
+  @if (blockMsg(); as m) { <p [class]="m.ok ? 'notice' : 'error'">{{ m.text }}</p> }
+</section>
+
+<h3>All bookings</h3>
+<label class="filter">Filter by date <input type="date" [(ngModel)]="filterDateModel" (ngModelChange)="filterDate.set($event)"></label>
+
+@if (message(); as m) { <p [class]="m.ok ? 'notice' : 'error'">{{ m.text }}</p> }
+
+@if (loading()) {
+  <p class="alt">Loading</p>
+} @else if (filtered().length === 0) {
+  <p class="alt">No bookings found.</p>
+} @else {
+  @for (b of filtered(); track b.id) {
+    <div class="row">
+      <span class="date">{{ b.date }}</span>
+      <span class="time">{{ hourLabel(b.slot_start) }}</span>
+      <span>{{ b.party_size }} guests</span>
+      <span class="status">{{ b.status }}</span>
+      @if (b.status === 'CONFIRMED') {
+        <button class="ghost" [disabled]="cancellingId() === b.id" (click)="cancel(b)">
+          {{ cancellingId() === b.id ? 'Cancelling' : 'Cancel' }}
+        </button>
+      } @else {
+        <span></span>
+      }
+    </div>
+  }
+}

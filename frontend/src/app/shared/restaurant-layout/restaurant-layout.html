@@ -1,0 +1,16 @@
+<div class="dash">
+  <aside class="rail">
+    <span class="brand">SmartDine</span>
+    <nav>
+      @for (l of links; track l.path) {
+        <a [routerLink]="l.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: l.exact }">
+          {{ l.label }}
+        </a>
+      }
+    </nav>
+    <button class="ghost signout" (click)="signOut()">Sign out</button>
+  </aside>
+  <section class="pane">
+    <router-outlet />
+  </section>
+</div>

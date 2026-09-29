@@ -1,0 +1,38 @@
+<h1>Campaigns</h1>
+
+<section class="new-box">
+  <h3>Create a campaign for a slot today</h3>
+  <form class="new-form" (ngSubmit)="createForSlot()">
+    <input type="time" name="ns" [(ngModel)]="newSlot" required>
+    <button class="btn" type="submit" [disabled]="creating()">{{ creating() ? 'Creating' : 'Create' }}</button>
+  </form>
+</section>
+
+@if (message(); as m) { <p [class]="m.ok ? 'notice' : 'error'">{{ m.text }}</p> }
+
+@if (loading()) {
+  <p class="alt">Loading</p>
+} @else if (list().length === 0) {
+  <p class="alt">No campaigns yet.</p>
+} @else {
+  @for (c of list(); track c.id) {
+    <div class="camp">
+      <div class="camp-main" (click)="toggleOpen(c)">
+        <b>{{ c.target_date }} · {{ hourLabel(c.slot_start) }}</b>
+        <span>Predicted {{ (+c.predicted_occupancy * 100).toFixed(0) }}% full · {{ c.offer_type }}{{ c.offer_value ? ' (' + c.offer_value + ')' : '' }}</span>
+      </div>
+      <span class="status" [class]="c.status.toLowerCase()">{{ c.status }}</span>
+      @if (c.status === 'PENDING_APPROVAL') {
+        <button class="ghost" [disabled]="busyId() === c.id" (click)="reject(c)">Reject</button>
+        <button class="btn" [disabled]="busyId() === c.id" (click)="approve(c)">Approve and send</button>
+      }
+      @if (openId() === c.id) {
+        <div class="notifs">
+          @for (n of notifs(); track n.id) {
+            <p>{{ n.message_text }}</p>
+          }
+        </div>
+      }
+    </div>
+  }
+}

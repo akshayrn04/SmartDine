@@ -1,0 +1,25 @@
+h1 { font-size: 26px; margin-bottom: 20px; }
+h3 { font-size: 15px; margin: 26px 0 12px; color: var(--muted); }
+h3:first-of-type { margin-top: 0; }
+
+.tl {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+  align-items: end; height: 140px;
+}
+.cell { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; font-size: 12px; color: var(--muted); text-align: center; }
+.fill { border-radius: 3px 3px 0 0; margin-bottom: 4px; min-height: 2px; }
+
+.stats { display: flex; gap: 24px; flex-wrap: wrap; margin: 24px 0 10px; }
+.stat { display: flex; flex-direction: column; }
+.stat .n { font-family: var(--font-display); font-weight: 700; font-size: 26px; }
+.stat .l { color: var(--muted); font-size: 13px; }
+
+.row {
+  display: grid; grid-template-columns: 100px 110px 1fr 1fr 60px;
+  align-items: center; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line);
+}
+.row:first-of-type { border-top: 0; }
+.status { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--tint); color: var(--muted); justify-self: start; }
+.status.sent { background: var(--basil); color: #fff; }
+.status.rejected, .status.expired { background: var(--pom); color: #fff; }
+.pct { font-weight: 600; text-align: right; }

@@ -1,0 +1,13 @@
+<h1>Customers</h1>
+@if (loading()) {
+  <p class="alt">Loading</p>
+} @else {
+  @for (c of list(); track c.id) {
+    <div class="row">
+      <span>{{ c.name }}</span>
+      <span class="muted">{{ c.email }}</span>
+      <span class="muted">{{ c.phone || 'No phone' }}</span>
+      <span class="badge" [class.on]="c.opted_in">{{ c.opted_in ? 'Opted in' : 'Opted out' }}</span>
+    </div>
+  }
+}

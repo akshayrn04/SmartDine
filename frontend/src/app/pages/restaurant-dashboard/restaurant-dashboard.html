@@ -1,0 +1,35 @@
+<h1>Today</h1>
+
+@if (error()) {
+  <p class="error">{{ error() }}</p>
+} @else if (loading()) {
+  <p class="alt">Loading</p>
+} @else if (data(); as d) {
+  <div class="stats">
+    <div class="stat"><span class="n">{{ d.total_bookings_today }}</span><span class="l">Bookings today</span></div>
+    <div class="stat"><span class="n">{{ d.total_seats_booked_today }}</span><span class="l">Seats filled</span></div>
+    <div class="stat"><span class="n">{{ d.cancellations_today }}</span><span class="l">Cancellations</span></div>
+    <div class="stat"><span class="n">{{ d.total_seats }}</span><span class="l">Total seats</span></div>
+  </div>
+
+  <h3>Seats taken by hour</h3>
+  @if (d.slots.length === 0) {
+    <p class="alt">No bookings yet today.</p>
+  } @else {
+    <div class="tl">
+      @for (s of d.slots; track s.slot_start) {
+        <div class="cell">
+          <div class="fill" [style.height.%]="barHeight(s.booked_seats + s.blocked_seats, s.total_seats)"
+               [style.background]="tone(s.booked_seats + s.blocked_seats, s.total_seats)"></div>
+          <span>{{ hourLabel(s.slot_start) }}</span>
+        </div>
+      }
+    </div>
+  }
+
+  <div class="legend">
+    <span><i class="dot" style="background:var(--basil)"></i>Plenty free</span>
+    <span><i class="dot" style="background:var(--turmeric)"></i>Filling up</span>
+    <span><i class="dot" style="background:var(--pom)"></i>Nearly full</span>
+  </div>
+}

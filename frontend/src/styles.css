@@ -1,0 +1,100 @@
+:root {
+  --bg: #F4F5F2;
+  --surface: #ffffff;
+  --ink: #24192B;
+  --muted: #6B6470;
+  --line: #DDDBD6;
+  --tint: #ECEEE9;
+
+  --basil: #2F6B4F;       /* plenty of seats */
+  --turmeric: #D99A1B;    /* filling up */
+  --pom: #B3263E;         /* nearly full */
+
+  --font-display: "Bricolage Grotesque", "Hanken Grotesk", system-ui, sans-serif;
+  --font-body: "Hanken Grotesk", system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17111B;
+    --surface: #211A26;
+    --ink: #EFEAF1;
+    --muted: #A79FAD;
+    --line: #3A3141;
+    --tint: #2A2230;
+    --basil: #5FB88C;
+    --turmeric: #E8B24A;
+    --pom: #E0667B;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 16px/1.5 var(--font-body);
+}
+
+h1, h2, h3, .brand {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.brand { font-weight: 700; font-size: 20px; }
+
+.btn {
+  display: inline-block;
+  background: var(--ink);
+  color: var(--bg);
+  border: 0;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font: 600 14px var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:disabled { background: var(--tint); color: var(--muted); cursor: not-allowed; }
+
+.ghost {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font: 600 14px var(--font-body);
+  padding: 10px;
+  cursor: pointer;
+}
+
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.topbar a { color: inherit; text-decoration: none; }
+
+.wrap { max-width: 420px; margin: 0 auto; padding: 56px 24px; }
+.wrap h1 { font-size: 30px; margin-bottom: 24px; }
+
+form { display: grid; gap: 6px; }
+label { font-weight: 600; font-size: 14px; margin-top: 10px; }
+input[type=text], input[type=email], input[type=password], input[type=tel] {
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+}
+.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; margin-top: 16px; }
+.check input { margin-top: 4px; }
+.error { color: var(--pom); font-weight: 500; margin: 8px 0 0; }
+.alt { color: var(--muted); margin-top: 20px; }
+.alt a { color: var(--ink); font-weight: 600; }
+form .btn { margin-top: 18px; justify-self: start; }

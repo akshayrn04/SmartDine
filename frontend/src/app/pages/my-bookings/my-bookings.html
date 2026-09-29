@@ -1,0 +1,50 @@
+<header class="topbar">
+  <span class="brand">SmartDine</span>
+  <a class="ghost" routerLink="/customer">Book a table</a>
+</header>
+
+<main class="wrap-wide">
+  <h1>My bookings</h1>
+
+  @if (message(); as m) {
+    <p [class]="m.ok ? 'notice' : 'error'" role="status">{{ m.text }}</p>
+  }
+
+  @if (loading()) {
+    <p class="alt">Loading your bookings</p>
+  } @else {
+    <section>
+      <h2>Upcoming</h2>
+      @if (upcoming().length === 0) {
+        <p class="alt">No upcoming bookings. <a routerLink="/customer">Book a table</a></p>
+      } @else {
+        @for (b of upcoming(); track b.id) {
+          <div class="row">
+            <span class="date">{{ dateLabel(b.date) }}</span>
+            <span class="time">{{ hourLabel(b.slot_start) }}</span>
+            <span>{{ b.party_size }} {{ b.party_size === 1 ? 'guest' : 'guests' }}</span>
+            <button class="ghost" [disabled]="cancellingId() === b.id" (click)="cancel(b)">
+              {{ cancellingId() === b.id ? 'Cancelling' : 'Cancel' }}
+            </button>
+          </div>
+        }
+      }
+    </section>
+
+    <section>
+      <h2>Past</h2>
+      @if (past().length === 0) {
+        <p class="alt">Nothing here yet.</p>
+      } @else {
+        @for (b of past(); track b.id) {
+          <div class="row muted-row">
+            <span class="date">{{ dateLabel(b.date) }}</span>
+            <span class="time">{{ hourLabel(b.slot_start) }}</span>
+            <span>{{ b.party_size }} {{ b.party_size === 1 ? 'guest' : 'guests' }}</span>
+            <span class="status">{{ b.status === 'CANCELLED' ? 'Cancelled' : 'Completed' }}</span>
+          </div>
+        }
+      }
+    </section>
+  }
+</main>

@@ -1,0 +1,41 @@
+<h1>Analytics</h1>
+
+<h3>Occupancy — last 7 days</h3>
+@if (occ().length === 0) {
+  <p class="alt">Loading</p>
+} @else {
+  <div class="tl">
+    @for (d of occ(); track d.date) {
+      <div class="cell">
+        <div class="fill" [style.height.%]="barHeight(d.seats_booked, d.total_seats)"
+             [style.background]="tone(d.seats_booked, d.total_seats)"></div>
+        <span>{{ dayLabel(d.date) }}</span>
+      </div>
+    }
+  </div>
+}
+
+@if (cancelStats(); as c) {
+  <div class="stats">
+    <div class="stat"><span class="n">{{ c.total_bookings }}</span><span class="l">Total bookings</span></div>
+    <div class="stat"><span class="n">{{ c.cancelled }}</span><span class="l">Cancelled</span></div>
+    <div class="stat"><span class="n">{{ c.cancellation_rate_percent }}%</span><span class="l">Cancellation rate</span></div>
+  </div>
+}
+
+<h3>Campaign performance</h3>
+@if (loading()) {
+  <p class="alt">Loading</p>
+} @else if (campaignResults().length === 0) {
+  <p class="alt">No campaigns yet.</p>
+} @else {
+  @for (r of campaignResults(); track r.campaign_id) {
+    <div class="row">
+      <span class="date">{{ r.target_date }}</span>
+      <span class="status" [class]="r.status.toLowerCase()">{{ r.status }}</span>
+      <span>{{ r.customers_targeted }} targeted</span>
+      <span>{{ r.bookings_generated }} booked</span>
+      <span class="pct">{{ r.conversion_rate_percent }}%</span>
+    </div>
+  }
+}

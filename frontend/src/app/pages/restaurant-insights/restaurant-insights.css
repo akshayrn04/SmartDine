@@ -1,0 +1,7 @@
+h1 { font-size: 26px; margin-bottom: 6px; }
+.row { display: grid; grid-template-columns: 90px 60px 1fr 48px; align-items: center; gap: 12px; padding: 6px 0; border-top: 1px solid var(--line); }
+.row:first-of-type { border-top: 0; }
+.time { font-family: var(--font-display); font-weight: 700; }
+.bar-wrap { background: var(--tint); border-radius: 3px; height: 8px; overflow: hidden; }
+.bar { display: block; height: 100%; border-radius: 3px; }
+.pct { font-weight: 600; font-size: 13px; text-align: right; }

@@ -1,0 +1,17 @@
+<header class="topbar">
+  <span class="brand">SmartDine</span>
+</header>
+
+<section class="choose">
+  <div class="main-choice">
+    <h1>Book a table for tonight or this week</h1>
+    <p>See which seats are open and reserve in a few taps.</p>
+    <a class="btn" routerLink="/login" [queryParams]="{ role: 'customer' }">Continue as a customer</a>
+  </div>
+
+  <div class="side-choice">
+    <h2>Restaurant sign in</h2>
+    <p>Bookings, seat blocking and demand insights.</p>
+    <a class="btn" routerLink="/login" [queryParams]="{ role: 'restaurant' }">Sign in as restaurant</a>
+  </div>
+</section>

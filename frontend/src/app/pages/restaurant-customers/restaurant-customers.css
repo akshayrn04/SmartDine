@@ -1,0 +1,6 @@
+h1 { font-size: 26px; margin-bottom: 20px; }
+.row { display: grid; grid-template-columns: 1fr 1fr 140px 90px; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); align-items: center; }
+.row:first-of-type { border-top: 0; }
+.muted { color: var(--muted); font-size: 14px; }
+.badge { font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: var(--tint); color: var(--muted); justify-self: start; }
+.badge.on { background: var(--basil); color: #fff; }

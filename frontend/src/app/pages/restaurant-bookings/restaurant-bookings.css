@@ -1,0 +1,23 @@
+h1 { font-size: 26px; margin-bottom: 20px; }
+h3 { font-size: 16px; margin: 0 0 12px; color: var(--muted); }
+
+.block-box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 30px; }
+.block-form { display: flex; gap: 14px; flex-wrap: wrap; align-items: end; }
+.block-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.block-form input {
+  font: inherit; padding: 8px 10px; border: 1px solid var(--line); border-radius: 4px;
+  background: var(--bg); color: var(--ink);
+}
+
+.filter { display: block; margin-bottom: 14px; font-size: 13px; font-weight: 600; }
+.filter input { margin-left: 8px; font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); color: var(--ink); }
+
+.notice { color: var(--basil); font-weight: 500; margin: 8px 0; }
+
+.row {
+  display: grid; grid-template-columns: 110px 90px 90px 1fr auto;
+  align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line);
+}
+.row:first-of-type { border-top: 0; }
+.time { font-family: var(--font-display); font-weight: 700; }
+.status { color: var(--muted); font-size: 13px; }

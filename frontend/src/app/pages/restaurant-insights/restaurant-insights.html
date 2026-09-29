@@ -1,0 +1,14 @@
+<h1>AI insights</h1>
+<p class="alt">Predicted occupancy for the next 7 days.</p>
+@if (loading()) {
+  <p class="alt">Loading</p>
+} @else {
+  @for (r of rows(); track r.date + r.slot_start) {
+    <div class="row">
+      <span class="date">{{ r.date }}</span>
+      <span class="time">{{ hourLabel(r.slot_start) }}</span>
+      <span class="bar-wrap"><span class="bar" [style.width.%]="r.predicted_occupancy * 100" [style.background]="tone(r.predicted_occupancy)"></span></span>
+      <span class="pct" [style.color]="tone(r.predicted_occupancy)">{{ (r.predicted_occupancy * 100).toFixed(0) }}%</span>
+    </div>
+  }
+}

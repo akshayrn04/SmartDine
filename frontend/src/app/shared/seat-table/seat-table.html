@@ -1,0 +1,10 @@
+<svg width="60" height="60" viewBox="-30 -30 60 60" aria-hidden="true">
+  <circle r="11" fill="var(--line)" />
+  @for (s of seats(); track $index) {
+    @if (s.taken) {
+      <circle [attr.cx]="s.x" [attr.cy]="s.y" r="4.5" fill="var(--ink)" />
+    } @else {
+      <circle [attr.cx]="s.x" [attr.cy]="s.y" r="3.8" fill="none" [attr.stroke]="tone()" stroke-width="2" />
+    }
+  }
+</svg>
