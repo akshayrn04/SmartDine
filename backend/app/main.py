@@ -1,17 +1,3 @@
-'''from fastapi import FastAPI
-from app.database import engine, Base
-from app import models
-
-print("Tables Base knows about:", Base.metadata.tables.keys())
-Base.metadata.create_all(bind=engine)
-print("create_all finished running")
-
-app = FastAPI(title="SmartDine API")
-
-@app.get("/")
-def root():
-    return {"message": "SmartDine backend is running"}
-'''
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from app.database import engine, Base
@@ -26,7 +12,8 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="SmartDine API")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:4200"],
+    allow_origins=["http://localhost:4200","https://smart-dine-eight.vercel.app"],
+
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
