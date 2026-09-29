@@ -2,7 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 
-export const API_URL = 'http://localhost:8000/api';
+export const API_URL = 'https://smartdine-api.onrender.com/api';
 
 export interface TokenResponse {
   access_token: string;
